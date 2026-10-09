@@ -32,10 +32,20 @@ def create_app() -> FastAPI:
 
     @app.post("/events", status_code=201)
     def create_event(data: EventInput):
-        # Atividade 1: valide título e capacidade, gere um ID e guarde o
-        # evento em `events`. A resposta deve conter id, title, date e capacity.
-        # Os testes mostram os casos de sucesso e de entrada inválida.
-        raise HTTPException(status_code=501, detail="Cadastro ainda não implementado")
+        if data.title == "":
+            raise HTTPException(status_code=422, detail="Título não pode ser vazio")
+        if data.capacity <= 0:
+            raise HTTPException(status_code=422, detail="Capacidade deve ser maior que zero")
+
+        event_id = max(events, default=0) + 1
+        event = {
+            "id": event_id,
+            "title": data.title,
+            "date": data.date,
+            "capacity": data.capacity,
+        }
+        events[event_id] = event
+        return event
 
     return app
 
