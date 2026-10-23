@@ -4,6 +4,7 @@ from sqlalchemy import Integer, ForeignKey, UniqueConstraint, CheckConstraint
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.database import Base
+import datetime 
 
 
 class Event(Base):
@@ -14,7 +15,7 @@ class Event(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     # Complete os campos title, date e capacity e suas restrições.
     title: Mapped[str] = mapped_column(nullable=False)
-    date: Mapped[int] = mapped_column(nullable=False)
+    date: Mapped[datetime.date] = mapped_column(nullable=False)
     capacity: Mapped[int] = mapped_column(nullable=False)
 
 
